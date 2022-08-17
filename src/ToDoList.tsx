@@ -30,11 +30,13 @@ function ToDoList() {
 */
 
 function ToDoList() {
-    const { register, watch } = useForm();
-    console.log(watch());
+    const { register, handleSubmit } = useForm();
+    const onValid = (data: any) => {
+        console.log(data);
+    };
     return (
         <div>
-            <form>
+            <form onSubmit={handleSubmit(onValid)}>
                 <input {...register("Email")} placeholder="Email" />
                 <input {...register("FirstName")} placeholder="First Name" />
                 <input {...register("LastName")} placeholder="Last Name" />
@@ -45,6 +47,6 @@ function ToDoList() {
             </form>
         </div>
     );
-}
+};
 
 export default ToDoList;
