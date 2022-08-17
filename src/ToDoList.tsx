@@ -29,15 +29,29 @@ function ToDoList() {
 };
 */
 
+interface IForm {
+    Email: string;
+    FirstName: string;
+    LastName: string;
+    Username: string;
+    Password1: string;
+    Password2: string;
+};
+
 function ToDoList() {
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm<IForm>({
+        defaultValues: {
+            Email: "@naver.com"
+        }
+    });
     const onValid = (data: any) => {
         console.log(data);
     };
     return (
         <div>
-            <form onSubmit={handleSubmit(onValid)}>
-                <input {...register("Email")} placeholder="Email" />
+            <form onSubmit={handleSubmit(onValid)} style={{display:"flex", flexDirection: "column"}}>
+                <input {...register("Email", { required: "Email is Required", pattern: {value: /^[A-Za-z0-9._%+-]+@naver.com/, message: "Only 'naver.com' is allowd"} })} placeholder="Email" />
+                <span>{errors?.Email?.message}</span>
                 <input {...register("FirstName")} placeholder="First Name" />
                 <input {...register("LastName")} placeholder="Last Name" />
                 <input {...register("Username")} placeholder="Username" />
