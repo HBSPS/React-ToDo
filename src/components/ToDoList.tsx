@@ -1,27 +1,58 @@
 import React from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { Categories, categoryState, toDoSelector } from "../atoms";
+import { useRecoilValue } from "recoil";
+import styled from "styled-components";
+import { toDoSelector } from "../atoms";
 import CreateToDo from "./CreateToDo";
+import SelectCategory from "./SelectCategory";
 import ToDo from "./ToDo";
+
+const Title = styled.h1`
+    font-size: 50px;
+    font-weight: bold;
+    text-align: center;
+    display: block;
+    margin: 20px 0px;
+`;
+
+const Main = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+`;
+
+const Container = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 50px 0px;
+`;
+
+const ItemList = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+`;
 
 function ToDoList() {
     const toDos = useRecoilValue(toDoSelector);
-    const [category, setCategory] = useRecoilState(categoryState);
-    const onInput = (event: React.FormEvent<HTMLSelectElement>) => {
-        setCategory(event.currentTarget.value as any);
-    };
     return (
-        <div>
-            <h1>To Dos</h1>
+        <>
+            <Title>To Dos</Title>
             <hr />
-            <select onInput={onInput} value={category}>
-                <option value={Categories.TO_DO}>To Do</option>
-                <option value={Categories.DOING}>Doing</option>
-                <option value={Categories.DONE}>Done</option>
-            </select>
-            <CreateToDo />
-            {toDos.map((toDo) => <ToDo key={toDo.id} {...toDo} />)}
-        </div>
+            <Main>
+                <Container>
+                    <SelectCategory />
+                    <CreateToDo />
+                </Container>
+                <ItemList>
+                    {toDos.map((toDo) => <ToDo key={toDo.id} {...toDo} />)}
+                </ItemList>
+            </Main>
+        </>
     );
 };
 
