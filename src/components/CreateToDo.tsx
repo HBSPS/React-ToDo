@@ -47,8 +47,8 @@ function CreateToDo() {
     return (
         <>
             <form onSubmit={handleSubmit(handleValid)}>
-                <Input {...register("toDo", {required: "Please write a To Do"})} placeholder="Write what you will do" />
-                <Button>Add</Button>
+                <Input {...register("toDo", { required: "Please write a To Do" })} placeholder="Write what you will do" />
+                {category === "All" ? null : <Button >Add</Button>}
             </form>
         </>
     );

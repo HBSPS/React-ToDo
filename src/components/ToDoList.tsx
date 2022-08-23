@@ -35,7 +35,7 @@ const ItemList = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: left;
-    width: 400px;
+    width: 800px;
     text-align: right;
 `;
 

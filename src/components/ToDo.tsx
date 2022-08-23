@@ -27,6 +27,15 @@ const Button = styled.button`
     }
 `;
 
+const Cat = styled.span`
+    padding: 3px 8px;
+    color: ${(props) => props.theme.accentColor};
+    background-color: ${(props) => props.theme.cardBgColor};
+    border: none;
+    border-radius: 5px;
+    box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px ${(props) => props.theme.bgColor};
+`;
+
 function ToDo({ text, category, id }: IToDo) {
     const setToDos = useSetRecoilState(toDoState);
     const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -47,7 +56,7 @@ function ToDo({ text, category, id }: IToDo) {
     };
     return (
         <Ul>
-            <Span>{text}</Span>
+            <Span><Cat>{category}</Cat>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{text}</Span>
             {category !== Categories.TO_DO && <Button name={Categories.TO_DO} onClick={onClick}>To Do</Button>}
             {category !== Categories.DOING && <Button name={Categories.DOING} onClick={onClick}>Doing</Button>}
             {category !== Categories.DONE && <Button name={Categories.DONE} onClick={onClick}>Done</Button>}

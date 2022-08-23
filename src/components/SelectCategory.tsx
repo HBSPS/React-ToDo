@@ -26,6 +26,7 @@ function SelectCategory() {
     return (
         <>
             <Select onInput={onInput} value={category}>
+                <Option>All</Option>
                 {cat.map((category) => <Option value={category} key={category}>{category}</Option>)}
             </Select>
         </>
