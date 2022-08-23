@@ -39,7 +39,7 @@ function CreateToDo() {
     const [toDos, setToDos] = useRecoilState(toDoState);
     const category= useRecoilValue(categoryState);
     const { register, handleSubmit, setValue } = useForm<IForm>();
-    const handleValid = ({toDo}: IForm) => {
+    const handleValid = ({ toDo }: IForm) => {
         setToDos((prev) => [{ text: toDo, id: Date.now(), category: category }, ...prev]);
         setValue("toDo", "");
     };
@@ -47,8 +47,7 @@ function CreateToDo() {
     return (
         <>
             <form onSubmit={handleSubmit(handleValid)}>
-                <Input {...register("toDo", { required: "Please write a To Do" })} placeholder="Write what you will do" />
-                {category === "All" ? null : <Button >Add</Button>}
+                {category === "All" ? null : <><Input {...register("toDo", { required: "Please write a To Do" })} placeholder="Write what you will do" /><Button >Add</Button></>}
             </form>
         </>
     );
