@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { categoryState, toDoState } from "../atoms";
 
@@ -22,7 +22,7 @@ const Button = styled.button`
     }
 `;
 
-const Input = styled.input.attrs({ placeholder: "Write what you will do" })`
+const Input = styled.input`
     padding: 10px;
     margin-left: 10px;
     background-color: ${(props) => props.theme.cardBgColor};
@@ -36,18 +36,21 @@ const Input = styled.input.attrs({ placeholder: "Write what you will do" })`
 `;
 
 function CreateToDo() {
-    const setToDos = useSetRecoilState(toDoState);
-    const category = useRecoilValue(categoryState);
+    const [toDos, setToDos] = useRecoilState(toDoState);
+    const category= useRecoilValue(categoryState);
     const { register, handleSubmit, setValue } = useForm<IForm>();
     const handleValid = ({toDo}: IForm) => {
-        setToDos((prev) => [{text: toDo, id: Date.now(), category: category}, ...prev]);
+        setToDos((prev) => [{ text: toDo, id: Date.now(), category: category }, ...prev]);
         setValue("toDo", "");
     };
+    window.localStorage.setItem("toDos", JSON.stringify(toDos));
     return (
-        <form onSubmit={handleSubmit(handleValid)}>
-            <Input {...register("toDo", {required: "Please write a To Do"})} />
-            <Button>Add</Button>
-        </form>
+        <>
+            <form onSubmit={handleSubmit(handleValid)}>
+                <Input {...register("toDo", {required: "Please write a To Do"})} placeholder="Write what you will do" />
+                <Button>Add</Button>
+            </form>
+        </>
     );
 };
 

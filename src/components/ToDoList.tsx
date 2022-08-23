@@ -1,8 +1,9 @@
-import React from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { toDoSelector } from "../atoms";
+import CreateCategory from "./CreateCategory";
 import CreateToDo from "./CreateToDo";
+import DeleteCategories from "./DeleteCategories";
 import SelectCategory from "./SelectCategory";
 import ToDo from "./ToDo";
 
@@ -33,8 +34,9 @@ const ItemList = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    width: auto;
+    align-items: left;
+    width: 400px;
+    text-align: right;
 `;
 
 function ToDoList() {
@@ -45,8 +47,10 @@ function ToDoList() {
             <hr />
             <Main>
                 <Container>
+                    <CreateCategory />
                     <SelectCategory />
                     <CreateToDo />
+                    <DeleteCategories />
                 </Container>
                 <ItemList>
                     {toDos.map((toDo) => <ToDo key={toDo.id} {...toDo} />)}

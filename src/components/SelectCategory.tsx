@@ -1,6 +1,6 @@
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { Categories, categoryState } from "../atoms";
+import { categoryState, customCat } from "../atoms";
 
 const Select = styled.select`
     padding: 10px;
@@ -19,15 +19,16 @@ const Option = styled.option`
 
 function SelectCategory() {
     const [category, setCategory] = useRecoilState(categoryState);
+    const cat = useRecoilValue(customCat);
     const onInput = (event: React.FormEvent<HTMLSelectElement>) => {
         setCategory(event.currentTarget.value as any);
     };
     return (
-        <Select onInput={onInput} value={category}>
-            <Option value={Categories.TO_DO}>To Do</Option>
-            <Option value={Categories.DOING}>Doing</Option>
-            <Option value={Categories.DONE}>Done</Option>
-        </Select>
+        <>
+            <Select onInput={onInput} value={category}>
+                {cat.map((category) => <Option value={category} key={category}>{category}</Option>)}
+            </Select>
+        </>
     );
 };
 

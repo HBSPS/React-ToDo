@@ -7,9 +7,14 @@ const Ul = styled.ul`
     font-size: 20px;
 `;
 
+const Span = styled.span`
+    margin-right: 20px;
+    font-weight: bold;
+`;
+
 const Button = styled.button`
-    padding: 5px;
-    margin: 10px;
+    padding: 8px;
+    margin: 10px 5px;
     color: ${(props) => props.theme.accentColor};
     background-color: ${(props) => props.theme.cardBgColor};
     border: none;
@@ -32,12 +37,21 @@ function ToDo({ text, category, id }: IToDo) {
             return [...oldToDos.slice(0, targetIndex), newToDo, ...oldToDos.slice(targetIndex + 1)];
         });
     };
+    const onClickDelete = () => {
+        setToDos((oldToDos) => {
+            const targetIndex = oldToDos.findIndex((toDo) => toDo.id === id);
+            const newArray = [...oldToDos.slice(0, targetIndex), ...oldToDos.slice(targetIndex + 1)];
+            window.localStorage.setItem("toDos", JSON.stringify(newArray));
+            return newArray;
+        });
+    };
     return (
         <Ul>
-            <span>{text}</span>
+            <Span>{text}</Span>
             {category !== Categories.TO_DO && <Button name={Categories.TO_DO} onClick={onClick}>To Do</Button>}
             {category !== Categories.DOING && <Button name={Categories.DOING} onClick={onClick}>Doing</Button>}
             {category !== Categories.DONE && <Button name={Categories.DONE} onClick={onClick}>Done</Button>}
+            <Button onClick={onClickDelete}>❌</Button>
         </Ul>
     );
 };
