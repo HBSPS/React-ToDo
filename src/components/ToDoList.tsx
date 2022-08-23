@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { toDoSelector } from "../atoms";
 import CreateCategory from "./CreateCategory";
 import CreateToDo from "./CreateToDo";
-import DeleteCategories from "./DeleteCategories";
+import DeleteCategories from "./DeleteEverything";
 import SelectCategory from "./SelectCategory";
 import ToDo from "./ToDo";
 
